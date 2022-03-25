@@ -26,7 +26,7 @@ void ATurret::BeginPlay()
 	Super::BeginPlay();
 
 	this->Tags.Add("Turret");
-	GetWorld()->SpawnActor<ABullet>()->ActorToWorld();
+	GetWorld()->SpawnActor<ABullet>()->SetActorLocation(GetActorForwardVector());
 	//BoxCollision->OnComponentHit.AddDynamic(this, &OnCollisionHit);
 }
 

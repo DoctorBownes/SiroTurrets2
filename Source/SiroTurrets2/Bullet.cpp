@@ -15,15 +15,16 @@ ABullet::ABullet()
 	//StaticMesh->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
 	SphereCollision = CreateDefaultSubobject<USphereComponent>("Collision Sphere");
 	StaticMesh->SetStaticMesh(mesh.Object);
-	SetRootComponent(StaticMesh);
 
 	ProjectTile = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
-	ProjectTile->SetUpdatedComponent(SphereCollision);
+	ProjectTile->SetUpdatedComponent(StaticMesh);
 	ProjectTile->InitialSpeed = 3000.0f;
 	ProjectTile->MaxSpeed = 3000.0f;
 	ProjectTile->bRotationFollowsVelocity = true;
 	ProjectTile->Bounciness = 0.3f;
 	ProjectTile->ProjectileGravityScale = 0.0f;
+	FireInDirection(FVector(1, 0, 0));
+	SetRootComponent(StaticMesh);
 }
 
 void ABullet::FireInDirection(const FVector& ShootDirection)
