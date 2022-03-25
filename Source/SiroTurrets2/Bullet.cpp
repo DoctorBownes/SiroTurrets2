@@ -35,7 +35,7 @@ void ABullet::FireInDirection(const FVector& ShootDirection)
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
-	FTimerHandle TimerHandle;
+	FTimerHandle TimerHandle = FTimerHandle();
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
 		{
 			Destroy();

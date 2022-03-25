@@ -23,7 +23,7 @@ void AEnemy::BeginPlay()
 	Super::BeginPlay();
 
 	this->Tags.Add("Enemy");
-	StaticMesh->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnCollisionHit);
+	//StaticMesh->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnCollisionHit);
 }
 
 // Called every frame
@@ -35,8 +35,8 @@ void AEnemy::Tick(float DeltaTime)
 
 void AEnemy::OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit)
 {
-	if (OtherActor->ActorHasTag("Turret"))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit"));
-	}
+	//if (OtherActor->ActorHasTag("Turret"))
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Hit"));
+	//}
 }

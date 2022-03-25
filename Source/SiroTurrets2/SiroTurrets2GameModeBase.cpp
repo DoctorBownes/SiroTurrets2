@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "PlayerCharacter.h"
 #include "SiroTurrets2GameModeBase.h"
+#include "PlayerCharacter.h"
 
 ASiroTurrets2GameModeBase::ASiroTurrets2GameModeBase()
 {

@@ -20,8 +20,7 @@ ATurret::ATurret()
 
 void ATurret::Fire()
 {
-	ABullet* bullet = GetWorld()->SpawnActor<ABullet>();
-	bullet->SetActorLocation(GetActorLocation() + GetActorForwardVector() * 200);
+	ABullet* bullet = GetWorld()->SpawnActor<ABullet>((GetActorLocation() + GetActorForwardVector() * 200), FRotator(0, 0, 0));
 	bullet->FireInDirection(GetActorForwardVector());
 }
 
@@ -32,11 +31,11 @@ void ATurret::BeginPlay()
 
 	this->Tags.Add("Turret");
 	//BoxCollision->OnComponentHit.AddDynamic(this, &OnCollisionHit);
-	FTimerHandle TimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
-		{
-			Fire();
-		}, 2, true);
+	//FTimerHandle TimerHandle;
+	//GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
+	//	{
+	//		//Fire();
+	//	}, 2, true);
 }
 
 // Called every frame
