@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/BoxComponent.h"
+#include "Bullet.h"
 #include "GameFramework/Pawn.h"
 #include "Turret.generated.h"
 

@@ -18,7 +18,6 @@ ATurret::ATurret()
 	//UStaticMesh* Cube = CreateDefaultSubobject<UStaticMesh>("Shape_Cube");
 	StaticMesh->SetStaticMesh(mesh.Object);
 	StaticMesh->SetWorldScale3D(FVector(2, 1, 1));
-	this->Tags.Add("Turret");
 }
 
 // Called when the game starts or when spawned
@@ -26,6 +25,8 @@ void ATurret::BeginPlay()
 {
 	Super::BeginPlay();
 
+	this->Tags.Add("Turret");
+	GetWorld()->SpawnActor<ABullet>()->ActorToWorld();
 	//BoxCollision->OnComponentHit.AddDynamic(this, &OnCollisionHit);
 }
 

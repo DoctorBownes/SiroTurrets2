@@ -15,7 +15,9 @@ AEnemy::AEnemy()
 	BoxCollision = CreateDefaultSubobject<UBoxComponent>("Collision Box");
 
 	SetRootComponent(StaticMesh);
+
 	StaticMesh->SetStaticMesh(mesh.Object);
+	this->Tags.Add("Enemy");
 }
 
 // Called when the game starts or when spawned
@@ -23,6 +25,7 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
+	BoxCollision->SetRelativeLocation(FVector(0, 0, 0));
 	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnCollisionHit);
 }
 
