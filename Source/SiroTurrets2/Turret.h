@@ -15,8 +15,6 @@ class SIROTURRETS2_API ATurret : public APawn
 
 		UPROPERTY(VisibleAnywhere)
 		class UStaticMeshComponent* StaticMesh;
-		UPROPERTY(VisibleAnywhere)
-		class UBoxComponent* BoxCollision;
 
 private:
 	void OnCollisionHit(UPrimitiveComponent* OnComponentHit, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
@@ -25,6 +23,8 @@ private:
 public:
 	// Sets default values for this pawn's properties
 	ATurret();
+
+	void Fire();
 
 protected:
 	// Called when the game starts or when spawned

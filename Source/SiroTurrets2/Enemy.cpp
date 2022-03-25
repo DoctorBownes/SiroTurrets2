@@ -12,12 +12,9 @@ AEnemy::AEnemy()
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("My Mesh");
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
 
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>("Collision Box");
-
 	SetRootComponent(StaticMesh);
 
 	StaticMesh->SetStaticMesh(mesh.Object);
-	this->Tags.Add("Enemy");
 }
 
 // Called when the game starts or when spawned
@@ -25,8 +22,8 @@ void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 
-	BoxCollision->SetRelativeLocation(FVector(0, 0, 0));
-	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnCollisionHit);
+	this->Tags.Add("Enemy");
+	StaticMesh->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnCollisionHit);
 }
 
 // Called every frame

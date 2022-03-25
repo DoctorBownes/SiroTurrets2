@@ -15,10 +15,6 @@ class SIROTURRETS2_API AEnemy : public AActor
 		UPROPERTY(VisibleAnywhere)
 		class UStaticMeshComponent* StaticMesh;
 
-
-	UPROPERTY(VisibleAnywhere)
-		class UBoxComponent* BoxCollision;
-
 private:
 	UPROPERTY(EditAnywhere)
 		float speed = 500.0f;

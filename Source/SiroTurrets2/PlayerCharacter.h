@@ -16,6 +16,8 @@ class SIROTURRETS2_API APlayerCharacter : public ATurret
 
 	//UPROPERTY(VisibleAnywhere)
 	//class UCameraComponent* FollowCamera;
+private:
+	void LeftClick();
 
 public:
 	// Sets default values for this character's properties

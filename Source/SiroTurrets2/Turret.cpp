@@ -12,12 +12,17 @@ ATurret::ATurret()
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("My Mesh");
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Cube.Shape_Cube'"));
 	//mesh.Object.
-
-	BoxCollision = CreateDefaultSubobject<UBoxComponent>(FName("Collision Box"));
 	SetRootComponent(StaticMesh);
 	//UStaticMesh* Cube = CreateDefaultSubobject<UStaticMesh>("Shape_Cube");
 	StaticMesh->SetStaticMesh(mesh.Object);
 	StaticMesh->SetWorldScale3D(FVector(2, 1, 1));
+}
+
+void ATurret::Fire()
+{
+	ABullet* bullet = GetWorld()->SpawnActor<ABullet>();
+	bullet->SetActorLocation(GetActorLocation() + GetActorForwardVector() * 200);
+	bullet->FireInDirection(GetActorForwardVector());
 }
 
 // Called when the game starts or when spawned
@@ -26,8 +31,12 @@ void ATurret::BeginPlay()
 	Super::BeginPlay();
 
 	this->Tags.Add("Turret");
-	GetWorld()->SpawnActor<ABullet>()->SetActorLocation(GetActorForwardVector());
 	//BoxCollision->OnComponentHit.AddDynamic(this, &OnCollisionHit);
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
+		{
+			Fire();
+		}, 2, true);
 }
 
 // Called every frame

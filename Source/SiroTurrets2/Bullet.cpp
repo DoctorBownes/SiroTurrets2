@@ -13,18 +13,17 @@ ABullet::ABullet()
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> mesh(TEXT("StaticMesh'/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere'"));
 
 	//StaticMesh->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
-	SphereCollision = CreateDefaultSubobject<USphereComponent>("Collision Sphere");
 	StaticMesh->SetStaticMesh(mesh.Object);
+	StaticMesh->SetCollisionProfileName("OverlapAll");
+	SetRootComponent(StaticMesh);
 
 	ProjectTile = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectTile->SetUpdatedComponent(StaticMesh);
-	ProjectTile->InitialSpeed = 3000.0f;
-	ProjectTile->MaxSpeed = 3000.0f;
+	ProjectTile->InitialSpeed = 300.0f;
+	ProjectTile->MaxSpeed = 300.0f;
 	ProjectTile->bRotationFollowsVelocity = true;
 	ProjectTile->Bounciness = 0.3f;
 	ProjectTile->ProjectileGravityScale = 0.0f;
-	FireInDirection(FVector(1, 0, 0));
-	SetRootComponent(StaticMesh);
 }
 
 void ABullet::FireInDirection(const FVector& ShootDirection)
@@ -36,10 +35,13 @@ void ABullet::FireInDirection(const FVector& ShootDirection)
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
+		{
+			Destroy();
+		}, 3, false);
 
-
-	SphereCollision->SetRelativeLocation(FVector(0, 0, 0));
-	SphereCollision->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnCollisionHit);
+	StaticMesh->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnCollisionHit);
 }
 
 // Called every frame
@@ -53,6 +55,7 @@ void ABullet::OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* O
 {
 	if (OtherActor->ActorHasTag("Enemy"))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit"));
+		OtherActor->Destroy();
+		Destroy();
 	}
 }

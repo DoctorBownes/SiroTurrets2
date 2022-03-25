@@ -20,17 +20,14 @@ class SIROTURRETS2_API ABullet : public AActor
 	UPROPERTY(VisibleAnywhere)
 		class UProjectileMovementComponent* ProjectTile;
 
-	UPROPERTY(VisibleAnywhere)
-		class USphereComponent* SphereCollision;
-
 private:
 	UFUNCTION()
 		void OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit);
 
-	void FireInDirection(const FVector& ShootDirection);
 	
 public:	
 	// Sets default values for this actor's properties
+	void FireInDirection(const FVector& ShootDirection);
 	ABullet();
 
 protected:
