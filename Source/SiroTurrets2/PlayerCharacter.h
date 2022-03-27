@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Turret.h"
+#include "Components/BoxComponent.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -11,21 +12,26 @@ class SIROTURRETS2_API APlayerCharacter : public ATurret
 {
 	GENERATED_BODY()
 
-	//UPROPERTY(VisibleAnywhere)
-	//class USpringArmComponent* CameraBoom;
+	UPROPERTY(VisibleAnywhere)
+	class UBoxComponent* Wall;
 
 	//UPROPERTY(VisibleAnywhere)
 	//class UCameraComponent* FollowCamera;
 private:
 	void LeftClick();
 
+
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
+	int health = 3;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+		virtual void OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit) override;
 
 public:	
 	// Called every frame

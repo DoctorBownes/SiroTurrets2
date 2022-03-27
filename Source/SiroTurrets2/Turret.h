@@ -3,8 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "Bullet.h"
+#include "Enemy.h"
 #include "GameFramework/Pawn.h"
 #include "Turret.generated.h"
 
@@ -17,8 +18,10 @@ class SIROTURRETS2_API ATurret : public APawn
 		class UStaticMeshComponent* StaticMesh;
 
 private:
-	void OnCollisionHit(UPrimitiveComponent* OnComponentHit, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
+	TSubclassOf<AEnemy> classToFind;
+	TArray<AActor*> foundEnemies;
+	AEnemy* targetEnemy;
+	float distance = 1000.0f;
 
 public:
 	// Sets default values for this pawn's properties
@@ -29,6 +32,10 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	virtual void OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit);
+
 
 public:	
 	// Called every frame

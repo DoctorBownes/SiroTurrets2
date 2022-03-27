@@ -6,6 +6,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "SiroTurrets2GameModeBase.generated.h"
 
+class UUserWidget;
+
 /**
  * 
  */
@@ -16,5 +18,8 @@ class SIROTURRETS2_API ASiroTurrets2GameModeBase : public AGameModeBase
 
 public:
 	ASiroTurrets2GameModeBase();
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> MenuHUDClass;
 	
 };

@@ -19,8 +19,8 @@ ABullet::ABullet()
 
 	ProjectTile = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	ProjectTile->SetUpdatedComponent(StaticMesh);
-	ProjectTile->InitialSpeed = 300.0f;
-	ProjectTile->MaxSpeed = 300.0f;
+	ProjectTile->InitialSpeed = 3000.0f;
+	ProjectTile->MaxSpeed = 3000.0f;
 	ProjectTile->bRotationFollowsVelocity = true;
 	ProjectTile->Bounciness = 0.3f;
 	ProjectTile->ProjectileGravityScale = 0.0f;
@@ -35,6 +35,7 @@ void ABullet::FireInDirection(const FVector& ShootDirection)
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
+	ProjectTile->Velocity = FVector(0, 0, 0);
 	FTimerHandle TimerHandle = FTimerHandle();
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
 		{
@@ -56,6 +57,9 @@ void ABullet::OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* O
 	if (OtherActor->ActorHasTag("Enemy"))
 	{
 		OtherActor->Destroy();
-		Destroy();
+		if (!ProjectTile->Velocity.IsZero())
+		{
+			this->Destroy();
+		}
 	}
 }

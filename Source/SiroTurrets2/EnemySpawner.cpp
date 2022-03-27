@@ -2,6 +2,7 @@
 
 
 #include "EnemySpawner.h"
+//#include <FMath>
 
 // Sets default values
 AEnemySpawner::AEnemySpawner()
@@ -19,7 +20,8 @@ void AEnemySpawner::BeginPlay()
 	FTimerHandle TimerHandler = FTimerHandle();
 	GetWorld()->GetTimerManager().SetTimer(TimerHandler, [&]()
 		{
-			GetWorld()->SpawnActor<AEnemy>();
+			int i = std::rand() % 100 + -1000;
+			GetWorld()->SpawnActor<AEnemy>(FVector(1000, FMath::RandRange(-1000, 1000),0), FRotator(0,0,0));
 			//enemy->SetActorLocation(GetActorLocation() + GetActorForwardVector() * 200);
 		}, 1, true);
 }

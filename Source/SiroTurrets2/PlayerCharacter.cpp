@@ -11,6 +11,10 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	Wall = CreateDefaultSubobject<UBoxComponent>("Wall Collision");
+	Wall->SetWorldLocation(FVector(-1200, 0, 0));
+	Wall->SetWorldScale3D(FVector(1, 55, 1));
+
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	//CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	//CameraBoom->SetupAttachment(RootComponent);
@@ -28,6 +32,7 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	//Super::BeginPlay();
+	Wall->OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::OnCollisionHit);
 	
 }
 
@@ -35,7 +40,10 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (health < 1)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("You are dead!"));
+	}
 }
 
 // Called to bind functionality to input
@@ -52,3 +60,13 @@ void APlayerCharacter::LeftClick()
 	Fire();
 }
 
+void APlayerCharacter::OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit)
+{
+	if (OtherActor->ActorHasTag("Enemy"))
+	{
+		OtherActor->Destroy();
+		health--;
+		UE_LOG(LogTemp, Warning, TEXT("%d"), health);
+		UE_LOG(LogTemp, Warning, TEXT("Bullet hit"));
+	}
+}

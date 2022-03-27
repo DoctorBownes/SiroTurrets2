@@ -11,6 +11,9 @@ UCLASS()
 class SIROTURRETS2_API AEnemySpawner : public AActor
 {
 	GENERATED_BODY()
+
+private:
+	float timer = 20.0f;
 	
 public:	
 	// Sets default values for this actor's properties
