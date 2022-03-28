@@ -19,7 +19,13 @@ class SIROTURRETS2_API ASiroTurrets2GameModeBase : public AGameModeBase
 public:
 	ASiroTurrets2GameModeBase();
 
-	UPROPERTY(EditAnywhere)
-		TSubclassOf<UUserWidget> MenuHUDClass;
+
+	UPROPERTY(EditAnywhere, Category = "Class Types")
+		TSubclassOf<UUserWidget> WidgetClass;
+
+	UPROPERTY(VisibleInstanceOnly, Category = "Runtime")
+		class UGameHUDWidget* GameHudWidget;
+
+	virtual void BeginPlay() override;
 	
 };

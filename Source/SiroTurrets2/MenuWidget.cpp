@@ -11,7 +11,7 @@ void MenuWidget::Construct(const FArguments& InArgs)
 
 	
 
-	const FText TitleText = FText::FromString("I Tried");
+	const FText TitleText = FText::FromString("HighScore: ");
 
 	FSlateFontInfo TextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
 	TextStyle.Size = 40.0f;
@@ -34,7 +34,7 @@ void MenuWidget::Construct(const FArguments& InArgs)
 			SNew(SVerticalBox)
 			+ SVerticalBox::Slot()
 		[
-			SNew(STextBlock)
+			SNew(STextBlock).Tag("HighScore")
 			.Font(TextStyle)
 		.Text(TitleText)
 		.Justification(ETextJustify::Center)

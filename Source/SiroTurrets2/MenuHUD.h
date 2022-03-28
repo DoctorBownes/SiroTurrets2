@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "SiroTurrets2GameModeBase.h"
+#include "GameHUDWidget.h"
 #include "MenuHUD.generated.h"
 
 /**
@@ -21,5 +23,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
+
+public:
+	void InitializeHUD(ASiroTurrets2GameModeBase* RunGameMode);
+
+	void SetScore(int32 score);
 
 };
