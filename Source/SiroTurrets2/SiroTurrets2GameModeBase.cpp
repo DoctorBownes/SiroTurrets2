@@ -23,5 +23,6 @@ ASiroTurrets2GameModeBase::ASiroTurrets2GameModeBase()
 void ASiroTurrets2GameModeBase::BeginPlay()
 {
 		GameHudWidget = Cast<UGameHUDWidget>(CreateWidget(GetWorld(), WidgetClass));
+		GameHudWidget->InitializeHUD(this);
 		GameHudWidget->AddToViewport();
 }

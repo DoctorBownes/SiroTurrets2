@@ -8,6 +8,8 @@
 
 class UUserWidget;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEnemyHit, int32, HighScore);
+
 /**
  * 
  */
@@ -25,6 +27,10 @@ public:
 
 	UPROPERTY(VisibleInstanceOnly, Category = "Runtime")
 		class UGameHUDWidget* GameHudWidget;
+
+
+	UPROPERTY(BlueprintAssignable, BlueprintCallable, Category = "Delegates")
+	FOnEnemyHit OnEnemyHit;
 
 	virtual void BeginPlay() override;
 	

@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#include "SiroTurrets2GameModeBase.h"
 #include "Blueprint/UserWidget.h"
 #include "GameHUDWidget.generated.h"
 
@@ -17,11 +19,16 @@ class SIROTURRETS2_API UGameHUDWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(meta = (BindWidget))
-	UTextBlock* HighScore;
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* HighScore;
 
 	UPROPERTY(meta = (BindWidget))
-	UTextBlock* Lives;
+	class UTextBlock* Lives;
 
+	UFUNCTION(BlueprintCallable)
+	void InitializeHUD(ASiroTurrets2GameModeBase* RunGameMode);
+
+	UFUNCTION(BlueprintCallable)
+	void SetScore(int32 score);
 	
 };
