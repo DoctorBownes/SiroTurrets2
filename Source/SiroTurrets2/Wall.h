@@ -3,24 +3,32 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Enemy.h"
 #include "GameFramework/Actor.h"
-#include "EnemySpawner.generated.h"
+#include "Wall.generated.h"
 
 UCLASS()
-class SIROTURRETS2_API AEnemySpawner : public AActor
+class SIROTURRETS2_API AWall : public AActor
 {
 	GENERATED_BODY()
-
-private:
-	float timer = 0.5f;
 	
 public:	
 	// Sets default values for this actor's properties
-	AEnemySpawner();
+	AWall();
+
+private:
+
+	UPROPERTY(VisibleAnywhere)
+		class UBoxComponent* BoxComponent;
+
+	int health = 3;
 
 	UPROPERTY(VisibleInstanceOnly, Category = "Runtime")
 		class ASiroTurrets2GameModeBase* GameBase;
+
+	void SpacePressed();
+
+	UFUNCTION()
+	void OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit);
 
 protected:
 	// Called when the game starts or when spawned

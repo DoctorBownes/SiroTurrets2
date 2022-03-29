@@ -27,11 +27,14 @@ public:
 	// Sets default values for this pawn's properties
 	ATurret();
 
-	void Fire();
+	void Fire(bool isPlayer = false);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleInstanceOnly, Category = "Runtime")
+		class ASiroTurrets2GameModeBase* GameBase;
 
 	UFUNCTION()
 	virtual void OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit);

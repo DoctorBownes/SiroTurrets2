@@ -2,6 +2,7 @@
 
 
 #include "Turret.h"
+#include "SiroTurrets2GameModeBase.h"
 
 // Sets default values
 ATurret::ATurret()
@@ -19,9 +20,10 @@ ATurret::ATurret()
 	StaticMesh->SetWorldScale3D(FVector(2, 1, 1));
 }
 
-void ATurret::Fire()
+void ATurret::Fire(bool isPlayer)
 {
 	ABullet* bullet = GetWorld()->SpawnActor<ABullet>((GetActorLocation() + GetActorForwardVector() * 200), FRotator(0, 0, 0));
+	bullet->isPlayerBullet = isPlayer;
 	bullet->FireInDirection(GetActorForwardVector());
 }
 
@@ -30,12 +32,14 @@ void ATurret::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GameBase = Cast<ASiroTurrets2GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	this->Tags.Add("Turret");
-	FTimerHandle TimerHandle;
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
+	FTimerHandle TimerHandle = FTimerHandle();
+	GetGameInstance()->GetTimerManager().SetTimer(TimerHandle, [&]()
 		{
 			Fire();
 		}, 3, true);
+	GameBase->all_timer_handles.Add(TimerHandle);
 }
 
 // Called every frame

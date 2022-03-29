@@ -19,16 +19,24 @@ class SIROTURRETS2_API UGameHUDWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* HighScore;
 
 	UPROPERTY(meta = (BindWidget))
 	class UTextBlock* Lives;
+
+	UPROPERTY(meta = (BindWidget))
+		class UCanvasPanel* GameOverScreen;
 
 	UFUNCTION(BlueprintCallable)
 	void InitializeHUD(ASiroTurrets2GameModeBase* RunGameMode);
 
 	UFUNCTION(BlueprintCallable)
 	void SetScore(int32 score);
+
+
+	UFUNCTION(BlueprintCallable)
+		void SetLives(int32 amountlives);
+
 	
 };

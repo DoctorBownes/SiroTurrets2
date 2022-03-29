@@ -23,12 +23,16 @@ class SIROTURRETS2_API ABullet : public AActor
 private:
 	UFUNCTION()
 		void OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit);
-
+	
+	UPROPERTY(VisibleInstanceOnly, Category = "Runtime")
+		class ASiroTurrets2GameModeBase* GameBase;
 	
 public:	
 	// Sets default values for this actor's properties
 	void FireInDirection(const FVector& ShootDirection);
 	ABullet();
+
+	bool isPlayerBullet = false;
 
 protected:
 	// Called when the game starts or when spawned

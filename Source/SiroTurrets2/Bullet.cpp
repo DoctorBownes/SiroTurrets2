@@ -2,6 +2,8 @@
 
 
 #include "Bullet.h"
+#include "GameHUDWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -35,13 +37,14 @@ void ABullet::FireInDirection(const FVector& ShootDirection)
 void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
+	GameBase = Cast<ASiroTurrets2GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
 	ProjectTile->Velocity = FVector(0, 0, 0);
 	FTimerHandle TimerHandle = FTimerHandle();
-	GetWorld()->GetTimerManager().SetTimer(TimerHandle, [&]()
+	GetGameInstance()->GetTimerManager().SetTimer(TimerHandle, [&]()
 		{
 			Destroy();
-		}, 3, false);
-
+		}, 1, false);
+	GameBase->all_timer_handles.Add(TimerHandle);
 	StaticMesh->OnComponentBeginOverlap.AddDynamic(this, &ABullet::OnCollisionHit);
 }
 
@@ -60,6 +63,10 @@ void ABullet::OnCollisionHit(UPrimitiveComponent* OverlappedComponent, AActor* O
 		if (!ProjectTile->Velocity.IsZero())
 		{
 			this->Destroy();
+		}
+		if (isPlayerBullet)
+		{
+			GameBase->AddScore();
 		}
 	}
 }

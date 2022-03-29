@@ -21,6 +21,7 @@ class SIROTURRETS2_API ASiroTurrets2GameModeBase : public AGameModeBase
 public:
 	ASiroTurrets2GameModeBase();
 
+	TArray<FTimerHandle> all_timer_handles;
 
 	UPROPERTY(EditAnywhere, Category = "Class Types")
 		TSubclassOf<UUserWidget> WidgetClass;
@@ -33,5 +34,14 @@ public:
 	FOnEnemyHit OnEnemyHit;
 
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+		void AddScore();
+
+	UFUNCTION(BlueprintCallable)
+		void GameOver(bool shouldReset = false);
+
+private:
+	int score = 0;
 	
 };
