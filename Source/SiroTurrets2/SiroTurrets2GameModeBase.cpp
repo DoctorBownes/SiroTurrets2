@@ -39,6 +39,7 @@ void ASiroTurrets2GameModeBase::GameOver(bool shouldReset)
 {
 	if (shouldReset)
 	{
+		UGameplayStatics::SetGamePaused(this, false);
 		GameHudWidget->GameOverScreen->SetVisibility(ESlateVisibility::Hidden);
 		for (int i = 0; i < all_timer_handles.Num(); i++)
 		{
@@ -48,6 +49,7 @@ void ASiroTurrets2GameModeBase::GameOver(bool shouldReset)
 	}
 	else
 	{
+		UGameplayStatics::SetGamePaused(this, true);
 		GameHudWidget->GameOverScreen->SetVisibility(ESlateVisibility::Visible);
 	}
 }

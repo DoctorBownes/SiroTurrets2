@@ -26,7 +26,7 @@ void AWall::BeginPlay()
 	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AWall::OnCollisionHit);
 	GameBase = Cast<ASiroTurrets2GameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
-	PlayerController->InputComponent->BindAction("SpacePress", IE_Pressed, this, &AWall::SpacePressed);
+	PlayerController->InputComponent->BindAction("SpacePress", IE_Pressed, this, &AWall::SpacePressed).bExecuteWhenPaused = true;
 }
 
 // Called every frame
